@@ -17,7 +17,7 @@ namespace NotesApp.DataBase.Models
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
         // Связь один-к-одному с напоминанием
-        public Reminder Reminder { get; set; }
+        public Reminder? Reminder { get; set; }
 
     }
 }

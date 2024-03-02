@@ -12,7 +12,7 @@ namespace NotesApp.DataBase.Models
         public DateTime DateToNeedComleteReminder { get; set; }
 
         // Связь один-к-одному с заметкой
-        public int NoteId { get; set; }
-        public Note Note { get; set; }
+        public int? NoteId { get; set; }
+        public Note? Note { get; set; }
     }
 }

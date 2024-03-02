@@ -1,1 +1,12 @@
-<p>tags works!</p>
+<h2>Теги</h2>
+<form (submit)="createTag()">
+  <input [(ngModel)]="newTag.name" name="name" placeholder="Название">
+  <button type="submit">Добавить тег</button>
+</form>
+<ul>
+  <li *ngFor="let tag of tags">
+    {{ tag.name }}
+    <button (click)="updateTag(tag)">Обновить</button>
+    <button (click)="deleteTag(tag.id)">Удалить</button>
+  </li>
+</ul>

@@ -1,37 +1,19 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
+export class AppComponent {
+  title = 'NotesApp';
 
-  constructor(private http: HttpClient) {}
+  // Определение навигационных ссылок для вкладок
+  navLinks = [
+    { path: '/notes', label: 'Заметки' },
+    { path: '/tags', label: 'Тэги' },
+    { path: '/reminders', label: 'Напоминания' },
+  ];
 
-  ngOnInit() {
-    this.getForecasts();
-  }
-
-  getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
-
-  title = 'notesapp.client';
+  constructor() { }
 }

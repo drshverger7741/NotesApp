@@ -1,1 +1,13 @@
-<p>reminders works!</p>
+<h2>Напоминания</h2>
+<form (submit)="createReminder()">
+  <input [(ngModel)]="newReminder.name" name="name" placeholder="Заголовок">
+  <input [(ngModel)]="newReminder.dateToNeedComleteReminder" name="dateToNeedComleteReminder" type="datetime-local" placeholder="Дата">
+  <button type="submit">Добавить напоминание</button>
+</form>
+<ul>
+  <li *ngFor="let reminder of reminders">
+    {{ reminder.name }} - {{ reminder.dateToNeedComleteReminder | date:'short' }}
+    <button (click)="updateReminder(reminder)">Обновить</button>
+    <button (click)="deleteReminder(reminder.id)">Удалить</button>
+  </li>
+</ul>

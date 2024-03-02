@@ -1,1 +1,16 @@
-<p>notes works!</p>
+<!-- notes.component.html -->
+<h2>Заметки</h2>
+<form (submit)="createNote()">
+  <input [(ngModel)]="newNote.title" name="title" placeholder="Заголовок">
+  <input [(ngModel)]="newNote.content" name="content" placeholder="Содержание">
+  <button type="submit">Добавить заметку</button>
+</form>
+<ul>
+  <li *ngFor="let note of notes">
+    {{ note.title }} - {{ note.content }}
+    <button (click)="updateNote(note)">Обновить</button>
+    <button (click)="deleteNote(note.id)">Удалить</button>
+  </li>
+</ul>
+
+

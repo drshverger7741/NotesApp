@@ -13,6 +13,14 @@ namespace NotesApp.Server
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularApp",
+                    builder => builder.WithOrigins("https://localhost:4200") // Разрешите запросы от вашего Angular приложения
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader());
+            });
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -24,6 +32,7 @@ namespace NotesApp.Server
             app.UseStaticFiles();
 
             // Configure the HTTP request pipeline.
+            app.UseCors("AllowAngularApp"); // Используйте CORS политику
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
