@@ -4,10 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NotesComponent } from './notes/notes.component';
+import { TagsComponent } from './tags/tags.component';
+import { RemindersComponent } from './reminders/reminders.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotesComponent,
+    TagsComponent,
+    RemindersComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
