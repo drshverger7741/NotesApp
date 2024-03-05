@@ -1,7 +1,7 @@
 // notes.component.ts
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from './notes.service';
-import { Note } from '../models/models';
+import { Note } from '../models';
 
 @Component({
  selector: 'app-notes',

@@ -1,7 +1,7 @@
 // reminders.component.ts
 import { Component, OnInit } from '@angular/core';
 import { RemindersService } from './reminders.service';
-import { Reminder } from '../models/models'; // Убедитесь, что у вас есть модель Reminder
+import { Reminder } from '../models'; // Убедитесь, что у вас есть модель Reminder
 
 @Component({
   selector: 'app-reminders',

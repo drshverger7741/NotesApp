@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Reminder } from '../models/models'; // Убедитесь, что у вас есть модель Reminder
+import { Reminder } from '../models'; // Убедитесь, что у вас есть модель Reminder
 
 @Injectable({
   providedIn: 'root'
