@@ -74,6 +74,7 @@ namespace NotesApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Reminder>> PostReminder(Reminder reminder)
         {
+            
             _context.Reminder.Add(reminder);
             await _context.SaveChangesAsync();
 

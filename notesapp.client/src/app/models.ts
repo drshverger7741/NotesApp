@@ -5,8 +5,8 @@ export interface Note {
   status: boolean;
   dateCreate: Date;
   dateToNeedComlete: Date;
-  tags: Tag[]; // Убедитесь, что тип Tag также объявлен
-  reminder?: Reminder; // Убедитесь, что тип Reminder также объявлен
+  tags: Tag[];
+  reminder?: Reminder;
 }
 
 export interface Reminder {
@@ -20,6 +20,6 @@ export interface Reminder {
 export interface Tag {
   id: number;
   name: string;
-  notes: []; // Массив идентификаторов заметок, связанных с тегом
+  notes: [];
 }
 

@@ -10,13 +10,13 @@ namespace NotesApp.DataBase.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public bool Status {  get; set; }
-        public DateTime DateCreate { get; set; }
-        public DateTime DateToNeedComlete { get; set; }
+        public DateTimeOffset DateCreate { get; set; } 
+        public DateTimeOffset DateToNeedComlete { get; set; }
 
-        // Связь один-ко-многим с тегами
+        // Теги
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
-        // Связь один-к-одному с напоминанием
+        // Возможно напоминание
         public Reminder? Reminder { get; set; }
 
     }
