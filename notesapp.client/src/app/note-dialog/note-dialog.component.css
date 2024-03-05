@@ -1,0 +1,17 @@
+.dialog-title {
+  text-align: center;
+}
+
+.custom-dialog-width {
+  width: 100%; /* Задайте ширину, которая вам подходит */
+  max-width: 500px; /* Опционально: максимальная ширина */
+  margin: 0 auto; /* Центрирование диалогового окна */
+}
+
+.custom-label {
+  color: #fff; /* Измените цвет на более контрастный */
+}
+
+.full-width {
+  width: 100%;
+}

@@ -17,9 +17,9 @@ export class AppComponent {
   //];
 
   navLinks = [
-    { label: 'Заметки', path: '/notes', isActive: true, isDisabled: false },
-    { label: 'Тэги', path: '/tags', isActive: false, isDisabled: false },
-    { label: 'Напоминания', path: '/reminders', isActive: false, isDisabled: false }
+    { label: 'Заметки', path: '/notes', isActive: true },
+    { label: 'Тэги', path: '/tags', isActive: false },
+    { label: 'Напоминания', path: '/reminders', isActive: false }
   ];
 
   constructor(private router: Router) {

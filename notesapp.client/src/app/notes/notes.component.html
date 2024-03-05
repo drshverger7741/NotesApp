@@ -1,14 +1,32 @@
-<form (submit)="createNote()">
-  <input [(ngModel)]="newNote.title" name="title" placeholder="Заголовок">
-  <input [(ngModel)]="newNote.content" name="content" placeholder="Содержание">
-  <button type="submit">Добавить заметку</button>
+<form (submit)="createNote()" class="mb-3">
+  <div class="form-group">
+    <input [(ngModel)]="newNote.title" name="title" class="form-control" placeholder="Заголовок">
+  </div>
+  <div class="form-group">
+    <input [(ngModel)]="newNote.content" name="content" class="form-control" placeholder="Содержание">
+  </div>
+  <button type="submit" class="btn btn-primary">Добавить заметку</button>
 </form>
-<ul>
-  <li *ngFor="let note of notes">
-    {{ note.title }} - {{ note.content }}
-    <button (click)="updateNote(note)">Обновить</button>
-    <button (click)="deleteNote(note.id)">Удалить</button>
-  </li>
-</ul>
+<button mat-raised-button (click)="openDialog()">Добавить заметку</button>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Заголовок</th>
+      <th scope="col">Содержание</th>
+      <th scope="col">Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let note of notes">
+      <td>{{ note.title }}</td>
+      <td>{{ note.content }}</td>
+      <td>
+        <button class="btn btn-warning btn-sm" (click)="updateNote(note)">Изменить</button>
+        <button class="btn btn-danger btn-sm" (click)="deleteNote(note.id)">Удалить</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 

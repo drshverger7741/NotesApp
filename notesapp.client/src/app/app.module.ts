@@ -8,19 +8,36 @@ import { AppComponent } from './app.component';
 import { NotesComponent } from './notes/notes.component';
 import { TagsComponent } from './tags/tags.component';
 import { RemindersComponent } from './reminders/reminders.component';
+import { NoteDialogComponent } from './note-dialog/note-dialog.component';
+
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NotesComponent,
     TagsComponent,
-    RemindersComponent
+    RemindersComponent,
+    NoteDialogComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
-    AppRoutingModule, FormsModule 
+    AppRoutingModule, FormsModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

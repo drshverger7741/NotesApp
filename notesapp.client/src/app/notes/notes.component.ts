@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from './notes.service';
 import { Note } from '../models';
+import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
  selector: 'app-notes',
@@ -21,7 +23,7 @@ export class NotesComponent implements OnInit {
    reminder: undefined
  };
 
- constructor(private notesService: NotesService) { }
+  constructor(private notesService: NotesService, public dialog: MatDialog) { }
 
  ngOnInit(): void {
     this.getNotes();
@@ -45,7 +47,20 @@ export class NotesComponent implements OnInit {
             reminder: undefined
         };
     });
- }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NoteDialogComponent, {
+      width: '250px',
+      data: {} // передайте данные, если это необходимо
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // здесь вы можете обработать результат, если это необходимо
+    });
+  }
+
 
  updateNote(note: Note): void {
     this.notesService.updateNote(note).subscribe(updatedNote => {

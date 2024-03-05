@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { TagsService } from './tags.service';
 import { Tag } from '../models';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
@@ -16,7 +18,7 @@ export class TagsComponent implements OnInit {
     notes: [] // Если вы хотите включить связи с заметками в модель, убедитесь, что это соответствует вашей логике
   };
 
-  constructor(private tagsService: TagsService) { }
+  constructor(private tagsService: TagsService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getTags();
@@ -41,14 +43,20 @@ export class TagsComponent implements OnInit {
             notes: [] // Сбросьте связи с заметками, если они есть
           };
         });
-        console.log('Тег успешно добавлен.');
+        this.snackBar.open('Тег успешно добавлен.', 'OK', {
+          duration: 1500,
+        });
       } else {
         // Обработка случая, когда тег с таким именем уже существует
-        console.log('Тег с таким именем уже существует.');
+        this.snackBar.open('Тег с таким именем уже существует.', 'OK', {
+          duration: 1500,
+        });
       }
     } else {
       // Обработка случая, когда имя тега пустое
-      console.log('Имя тега не может быть пустым.');
+      this.snackBar.open('Имя тега не может быть пустым.', 'OK', {
+        duration: 1500,
+      });
     }
   }
 

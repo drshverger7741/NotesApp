@@ -1,13 +1,14 @@
 <div class="container">
  <header>
    <nav class="nav nav-pills nav-justified d-flex justify-content-center">
-      <a *ngFor="let link of navLinks" class="nav-item nav-link" [routerLink]="link.path" [class.active]="link.isActive" [class.disabled]="link.isDisabled">{{ link.label }}</a>
+      <a *ngFor="let link of navLinks" class="nav-item nav-link" [routerLink]="link.path" [class.active]="link.isActive">{{ link.label }}</a>
    </nav>
  </header>
  <div class="mt-3">
    <router-outlet></router-outlet>
  </div>
 </div>
+
 
 
 
