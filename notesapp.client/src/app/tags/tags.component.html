@@ -1,12 +1,17 @@
-<h2>Теги</h2>
-<form (submit)="createTag()">
-  <input [(ngModel)]="newTag.name" name="name" placeholder="Название">
-  <button type="submit">Добавить тег</button>
-</form>
-<ul>
-  <li *ngFor="let tag of tags">
-    {{ tag.name }}
-    <button (click)="updateTag(tag)">Обновить</button>
-    <button (click)="deleteTag(tag.id)">Удалить</button>
-  </li>
-</ul>
+<div class="container col-5">
+  <form (submit)="createTag()" class="mb-3">
+    <div class="input-group mb-3">
+      <input [(ngModel)]="newTag.name" name="name" class="form-control" placeholder="Название">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Добавить тег</button>
+      </div>
+    </div>
+  </form>
+  <ul class="list-group">
+    <li *ngFor="let tag of tags" class="list-group-item d-flex justify-content-between align-items-center">
+      {{ tag.name }}
+      <button class="btn btn-danger btn-sm" (click)="deleteTag(tag.id)">Удалить</button>
+    </li>
+  </ul>
+</div>
+
