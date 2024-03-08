@@ -11,3 +11,9 @@
     <button (click)="deleteReminder(reminder.id)">Удалить</button>
   </li>
 </ul>
+
+<dx-data-grid [dataSource]="reminders" [showBorders]="true">
+  <dxi-column dataField="name" caption="Название"></dxi-column>
+  <dxi-column dataField="dateToNeedComleteReminder" dataType="date" caption="Дата напоминания"></dxi-column>
+  <dxi-column type="buttons" [buttons]="['edit', 'delete']"></dxi-column>
+</dx-data-grid>

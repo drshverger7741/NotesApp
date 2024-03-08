@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,19 @@ export class AppComponent {
 
   // Определение навигационных ссылок для вкладок
   navLinks = [
-    { path: '/notes', label: 'Заметки' },
-    { path: '/tags', label: 'Тэги' },
-    { path: '/reminders', label: 'Напоминания' },
+    { label: 'Заметки', path: '/notes' },
+    { label: 'Тэги', path: '/tags' },
+    { label: 'Напоминания', path: '/reminders' },
+    // другие ссылки
   ];
 
-  constructor() { }
+  currentRoute = '/notes'; // начальный маршрут
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+    });
+  }
 }

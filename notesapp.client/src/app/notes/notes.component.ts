@@ -9,7 +9,8 @@ import { Note } from '../models';
  styleUrls: ['./notes.component.css']
 })
 export class NotesComponent implements OnInit {
- notes: Note[] = [];
+  notes: Note[] = [];
+  expanded: Boolean = true;
  newNote: Note = {
     id: 0,
     title: '',
@@ -21,14 +22,15 @@ export class NotesComponent implements OnInit {
    reminder: undefined
  };
 
- constructor(private notesService: NotesService) { }
+  constructor(private notesService: NotesService) {
+  }
 
  ngOnInit(): void {
     this.getNotes();
  }
 
  getNotes(): void {
-    this.notesService.getNotes().subscribe(notes => this.notes = notes);
+    this.notesService.getNotes().subscribe(data => this.notes = data);
  }
 
  createNote(): void {

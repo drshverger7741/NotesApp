@@ -20,6 +20,6 @@ export interface Reminder {
 export interface Tag {
   id: number;
   name: string;
-  notes: [];
+  notes?: Note[];
 }
 

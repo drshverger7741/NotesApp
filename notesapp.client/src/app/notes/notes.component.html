@@ -13,4 +13,15 @@
   </li>
 </ul>
 
+<dx-data-grid [dataSource]="notes" [showBorders]="true" [allowColumnResizing]="true"
+    [columnAutoWidth]="true">
+  <dxi-column dataField="title" caption="Заголовок"></dxi-column>
+  <dxi-column dataField="content" caption="Содержание"></dxi-column>
+  <dxi-column dataField="dateCreate" dataType="date" caption="Дата создания" ></dxi-column>
+  <dxi-column dataField="dateToNeedComlete" dataType="date" caption="Дата завершения"></dxi-column>
+  <dxi-column dataField="status" dataType="boolean" caption="Статус"  [width]="100"></dxi-column>
+  <dxi-column type="buttons" [buttons]="['edit', 'delete']"></dxi-column>
+</dx-data-grid>
+
+
 

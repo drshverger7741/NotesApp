@@ -10,3 +10,7 @@
     <button (click)="deleteTag(tag.id)">Удалить</button>
   </li>
 </ul>
+<dx-data-grid [dataSource]="tags" [showBorders]="true">
+  <dxi-column dataField="name" caption="Имя"></dxi-column>
+  <dxi-column type="buttons" [buttons]="['edit', 'delete']"></dxi-column>
+</dx-data-grid>
