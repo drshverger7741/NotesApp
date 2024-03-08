@@ -1,4 +1,4 @@
-<h2>Теги</h2>
+<!--<h2>Теги</h2>
 <form (submit)="createTag()">
   <input [(ngModel)]="newTag.name" name="name" placeholder="Название">
   <button type="submit">Добавить тег</button>
@@ -9,8 +9,43 @@
     <button (click)="updateTag(tag)">Обновить</button>
     <button (click)="deleteTag(tag.id)">Удалить</button>
   </li>
-</ul>
-<dx-data-grid [dataSource]="tags" [showBorders]="true">
-  <dxi-column dataField="name" caption="Имя"></dxi-column>
-  <dxi-column type="buttons" [buttons]="['edit', 'delete']"></dxi-column>
-</dx-data-grid>
+</ul>-->
+
+
+<div id="app-container-tags">
+  <dx-data-grid [dataSource]="tags" [showBorders]="true" [allowColumnResizing]="true"  style="width: 500px;"
+                (onInitNewRow)="onInitNewRow($event)"
+                (onRowUpdated)="onRowUpdated($event)"
+                (onRowRemoving)="onRowRemoving($event)"
+                (onRowInserted)="onRowInserted($event)">
+    >
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+    <dxo-toolbar>
+
+      <dxi-item name="addRowButton" showText="always"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+    </dxo-toolbar>
+
+    <dxi-column dataField="title" caption="Название тега"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+
+    <dxo-editing mode="popup"
+                 [allowUpdating]="true"
+                 [allowDeleting]="true"
+                 [allowAdding]="true">
+      <dxo-texts deleteRow="Удалить"
+                 addRow="Добавить тег"
+                 editRow="Изменить"
+                 saveRowChanges="Сохранить"
+                 cancelRowChanges="Отменить">
+      </dxo-texts>
+    </dxo-editing>
+    <dxo-summary>
+      <dxi-group-item summaryType="count">
+      </dxi-group-item>
+    </dxo-summary>
+  </dx-data-grid>
+</div>

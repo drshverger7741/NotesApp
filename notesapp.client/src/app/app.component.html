@@ -7,6 +7,41 @@
       </li>
     </ul>
   </nav>
+
+
+  <div id="container">
+    <!--<dx-tabs [width]="500" [selectedIndex]="0" selectionMode="multiple">
+      <dxi-item badge={{title}}></dxi-item>
+      <dxi-item text="Заметки" icon="favorites" path="/notes"></dxi-item>
+      <dxi-item text="Тэги" icon="tags" path="/tags"></dxi-item>
+      <dxi-item text="Напоминания" icon="bell" path="/reminders"></dxi-item>
+    </dx-tabs>-->
+
+  </div>
+
+  <!--<dx-tab-panel id="tabPanel">
+    <dxi-item title="Заметки" icon="favorites">
+
+    </dxi-item>
+    <dxi-item title="Тэги" icon="tags">
+       ...
+    </dxi-item>
+    <dxi-item title="Напоминания" icon="bell">
+       ...
+    </dxi-item>
+  </dx-tab-panel>-->
+
+
 </header>
+
+<!-- app.component.html -->
+<dx-tabs>
+  <dxi-item text="Заметки" icon="favorites" path="/notes"></dxi-item>
+  <dxi-item text="Тэги" icon="tags" path="/tags"></dxi-item>
+  <dxi-item text="Напоминания" icon="bell" path="/reminders"></dxi-item>
+</dx-tabs>
+<br />
+
+
 <router-outlet></router-outlet>
 

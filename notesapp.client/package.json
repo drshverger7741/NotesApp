@@ -23,6 +23,7 @@
     "@angular/router": "^17.2.0",
     "devextreme": "^23.2.4",
     "devextreme-angular": "^23.2.4",
+    "devextreme-schematics": "^1.6.7",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "jest-editor-support": "*",

@@ -15,7 +15,7 @@
 
 #app-container {
   width: 900px;
-  position: relative;
+  position: center;
 }
 
 #selected-employee {

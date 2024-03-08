@@ -1,4 +1,4 @@
-<h2>Напоминания</h2>
+<!--<h2>Напоминания</h2>
 <form (submit)="createReminder()">
   <input [(ngModel)]="newReminder.name" name="name" placeholder="Заголовок">
   <input [(ngModel)]="newReminder.dateToNeedComleteReminder" name="dateToNeedComleteReminder" type="datetime-local" placeholder="Дата">
@@ -10,10 +10,44 @@
     <button (click)="updateReminder(reminder)">Обновить</button>
     <button (click)="deleteReminder(reminder.id)">Удалить</button>
   </li>
-</ul>
+</ul>-->
 
-<dx-data-grid [dataSource]="reminders" [showBorders]="true">
-  <dxi-column dataField="name" caption="Название"></dxi-column>
-  <dxi-column dataField="dateToNeedComleteReminder" dataType="date" caption="Дата напоминания"></dxi-column>
-  <dxi-column type="buttons" [buttons]="['edit', 'delete']"></dxi-column>
-</dx-data-grid>
+
+<div id="app-container-reminders">
+  <dx-data-grid [dataSource]="reminders" [showBorders]="true" [allowColumnResizing]="true" style="width: 500px;"
+                (onInitNewRow)="onInitNewRow($event)"
+                (onRowUpdated)="onRowUpdated($event)"
+                (onRowRemoving)="onRowRemoving($event)"
+                (onRowInserted)="onRowInserted($event)">
+    >
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+    <dxo-toolbar>
+      <dxi-item name="addRowButton" showText="always"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+    </dxo-toolbar>
+
+    <dxi-column dataField="title" caption="Наименование напоминания"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-column dataField="dateToNeedComleteReminder" dataType="date" caption="Дата напоминания"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+
+    <dxo-editing mode="popup"
+                 [allowUpdating]="true"
+                 [allowDeleting]="true"
+                 [allowAdding]="true">
+      <dxo-texts deleteRow="Удалить"
+                 addRow="Добавить напоминание"
+                 editRow="Изменить"
+                 saveRowChanges="Сохранить"
+                 cancelRowChanges="Отменить">
+      </dxo-texts>
+    </dxo-editing>
+    <dxo-summary>
+      <dxi-group-item summaryType="count">
+      </dxi-group-item>
+    </dxo-summary>
+  </dx-data-grid>
+</div>

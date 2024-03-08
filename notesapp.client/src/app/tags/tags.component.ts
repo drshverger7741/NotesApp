@@ -10,45 +10,44 @@ import { Tag } from '../models';
 })
 export class TagsComponent implements OnInit {
   tags: Tag[] = [];
-  newTag: Tag = {
-    id: 0,
-    name: '',
-    notes: [] // Если вы хотите включить связи с заметками в модель, убедитесь, что это соответствует вашей логике
-  };
+
 
   constructor(private tagsService: TagsService) { }
 
   ngOnInit(): void {
-    this.getTags();
+    this.tagsService.getTags().subscribe(data => this.tags = data);
   }
 
-  getTags(): void {
-    this.tagsService.getTags().subscribe(tags => this.tags = tags);
+  onInitNewRow(e: any) {
+    // Устанавливаем начальные значения для новой записи
+    // Добавьте здесь другие начальные значения, если это необходимо
   }
 
-  createTag(): void {
-    this.tagsService.createTag(this.newTag).subscribe(tag => {
-      this.tags.push(tag);
-      this.newTag = {
-        id: 0,
-        name: '',
-        notes: []// Notes: [] // Сбросьте связи с заметками, если они есть
-      };
-    });
-  }
 
-  updateTag(tag: Tag): void {
-    this.tagsService.updateTag(tag).subscribe(updatedTag => {
-      const index = this.tags.findIndex(t => t.id === updatedTag.id);
+  onRowUpdated(e: any) {
+    const updatedTag = e.data;
+    this.tagsService.updateTag(updatedTag).subscribe(tag => {
+      // Обновляем запись в локальном массиве после успешного обновления на сервере
+      const index = this.tags.findIndex(n => n.id === tag.id);
       if (index !== -1) {
-        this.tags[index] = updatedTag;
+        this.tags[index] = tag;
       }
     });
   }
 
-  deleteTag(id: number): void {
-    this.tagsService.deleteTag(id).subscribe(() => {
-      this.tags = this.tags.filter(tag => tag.id !== id);
+  onRowRemoving(e: any) {
+    const tagId = e.data.id;
+    this.tagsService.deleteTag(tagId).subscribe(() => {
+      // Удаляем запись из локального массива после успешного удаления на сервере
+      this.tags = this.tags.filter(tag => tag.id !== tagId);
+    });
+  }
+
+  onRowInserted(e: any) {
+    const newTag = e.data;
+    this.tagsService.createTag(newTag).subscribe(note => {
+      // Добавляем новую запись в локальный массив после успешного добавления на сервере
+      this.tags.push(note);
     });
   }
 }

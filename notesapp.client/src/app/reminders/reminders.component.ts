@@ -19,38 +19,42 @@ export class RemindersComponent implements OnInit {
 
   constructor(private remindersService: RemindersService) { }
 
+
+
   ngOnInit(): void {
-    this.getReminders();
+    this.remindersService.getReminders().subscribe(data => this.reminders = data);
   }
 
-  getReminders(): void {
-    this.remindersService.getReminders().subscribe(reminders => this.reminders = reminders);
+
+  onInitNewRow(e: any) {
+
   }
 
-  createReminder(): void {
-    this.remindersService.createReminder(this.newReminder).subscribe(reminder => {
-      this.reminders.push(reminder);
-      this.newReminder = {
-        id: 0,
-        name: '',
-        dateToNeedComleteReminder: new Date(),
-        // Сбросьте другие свойства, если они есть в вашей модели
-      };
-    });
-  }
 
-  updateReminder(reminder: Reminder): void {
-    this.remindersService.updateReminder(reminder).subscribe(updatedReminder => {
-      const index = this.reminders.findIndex(r => r.id === updatedReminder.id);
+  onRowUpdated(e: any) {
+    const updatedReminder = e.data;
+    this.remindersService.updateReminder(updatedReminder).subscribe(reminder => {
+      // Обновляем запись в локальном массиве после успешного обновления на сервере
+      const index = this.reminders.findIndex(n => n.id === reminder.id);
       if (index !== -1) {
-        this.reminders[index] = updatedReminder;
+        this.reminders[index] = reminder;
       }
     });
   }
 
-  deleteReminder(id: number): void {
-    this.remindersService.deleteReminder(id).subscribe(() => {
-      this.reminders = this.reminders.filter(reminder => reminder.id !== id);
+  onRowRemoving(e: any) {
+    const reminderId = e.data.id;
+    this.remindersService.deleteReminder(reminderId).subscribe(() => {
+      // Удаляем запись из локального массива после успешного удаления на сервере
+      this.reminders = this.reminders.filter(reminder => reminder.id !== reminderId);
+    });
+  }
+
+  onRowInserted(e: any) {
+    const newReminder = e.data;
+    this.remindersService.createReminder(newReminder).subscribe(reminder => {
+      // Добавляем новую запись в локальный массив после успешного добавления на сервере
+      this.reminders.push(reminder);
     });
   }
 }

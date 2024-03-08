@@ -1,5 +1,5 @@
 <!-- notes.component.html -->
-<h2>Заметки</h2>
+<!--<h2>Заметки</h2>
 <form (submit)="createNote()">
   <input [(ngModel)]="newNote.title" name="title" placeholder="Заголовок">
   <input [(ngModel)]="newNote.content" name="content" placeholder="Содержание">
@@ -11,17 +11,56 @@
     <button (click)="updateNote(note)">Обновить</button>
     <button (click)="deleteNote(note.id)">Удалить</button>
   </li>
-</ul>
+</ul>-->
 
-<dx-data-grid [dataSource]="notes" [showBorders]="true" [allowColumnResizing]="true"
-    [columnAutoWidth]="true">
-  <dxi-column dataField="title" caption="Заголовок"></dxi-column>
-  <dxi-column dataField="content" caption="Содержание"></dxi-column>
-  <dxi-column dataField="dateCreate" dataType="date" caption="Дата создания" ></dxi-column>
-  <dxi-column dataField="dateToNeedComlete" dataType="date" caption="Дата завершения"></dxi-column>
-  <dxi-column dataField="status" dataType="boolean" caption="Статус"  [width]="100"></dxi-column>
-  <dxi-column type="buttons" [buttons]="['edit', 'delete']"></dxi-column>
-</dx-data-grid>
+<div id="app-container-notes" class="center">
+  <dx-data-grid [dataSource]="notes" [showBorders]="true" [allowColumnResizing]="true"
+                (onInitNewRow)="onInitNewRow($event)"
+                (onRowUpdated)="onRowUpdated($event)"
+                (onRowRemoving)="onRowRemoving($event)"
+                (onRowInserted)="onRowInserted($event)">
+    >
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
 
+    <dxo-toolbar>
 
+      <dxi-item name="addRowButton" showText="always"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+    </dxo-toolbar>
+
+    <dxi-column dataField="title" caption="Заголовок"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-column dataField="content" caption="Содержание"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-column dataField="dateCreate" dataType="date" caption="Дата создания"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-column dataField="dateToNeedComlete" dataType="date" caption="Дата дедлайна"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-column dataField="status" dataType="boolean" caption="Статус" [width]="100"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-column dataField="tags" caption="Тэги"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-column dataField="reminder" caption="Напоминание"></dxi-column>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+
+    <dxo-editing mode="popup"
+                 [allowUpdating]="true"
+                 [allowDeleting]="true"
+                 [allowAdding]="true">
+
+      <dxo-texts deleteRow="Удалить"
+                 addRow="Добавить заметку"
+                 editRow="Изменить"
+                 saveRowChanges="Сохранить"
+                 cancelRowChanges="Отменить">
+      </dxo-texts>
+    </dxo-editing>
+    <dxo-summary>
+      <dxi-group-item summaryType="count">
+      </dxi-group-item>
+    </dxo-summary>
+  </dx-data-grid>
+</div>
 
