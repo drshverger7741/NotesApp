@@ -2,11 +2,9 @@ export interface Note {
   id: number;
   title: string;
   content: string;
-  status: boolean;
   dateCreate: Date;
   dateToNeedComlete: Date;
   tags?: string[];
-  reminderId?: number;
 }
 
 export interface Reminder {

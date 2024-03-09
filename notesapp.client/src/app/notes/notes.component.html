@@ -6,11 +6,9 @@
     <tr>
       <th>Заголовок</th>
       <th>Содержание</th>
-      <th>Статус</th>
       <th>Дата создания</th>
-      <th>Дата дедлайна</th>
+      <th>Дата заметки</th>
       <th>Теги</th>
-      <th>Напоминание</th>
       <th scope="col">Действия</th>
     </tr>
   </thead>
@@ -18,16 +16,12 @@
     <tr *ngFor="let note of notes">
       <td>{{ note.title }}</td>
       <td>{{ note.content }}</td>
-      <td>{{ note.status ? 'Выполнено' : 'Не выполнено' }}</td>
       <td>{{ note.dateCreate | date:'dd.MM.yyyy HH:mm'}}</td>
       <td>{{ note.dateToNeedComlete | date:'dd.MM.yyyy HH:mm' }}</td>
       <td>
         <p *ngFor="let tag of note.tags">
           #{{tag}}
         </p>
-      </td>
-      <td>
-        <!--{{ note.reminderId ? note.reminder.name : 'Нет напоминания' }}-->
       </td>
       <td>
         <!--<button class="btn btn-warning btn-sm" (click)="openEditNoteModal(note)">Изменить</button>-->
@@ -54,14 +48,7 @@
         <textarea [(ngModel)]="newNote.content" name="content" id="content" class="form-control" placeholder="Содержание"></textarea>
       </div>
       <div class="form-group">
-        <label for="status">Статус</label>
-        <select [(ngModel)]="newNote.status" name="status" id="status" class="form-control">
-          <option [value]="true">Выполнено</option>
-          <option [value]="false">Не выполнено</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="dateToNeedComlete">Дата дедлайна</label>
+        <label for="dateToNeedComlete">Дата заметки</label>
         <input [(ngModel)]="newNote.dateToNeedComlete" name="dateToNeedComlete" id="dateToNeedComlete" type="datetime-local" class="form-control">
       </div>
       <div class="form-group">
@@ -75,10 +62,6 @@
             <button class="btn btn-secondary btn-sm" (click)="deleteTag(tag)">{{ tag }}</button>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="reminder">Напоминание</label>
-        <!--<input [(ngModel)]="newNote.reminder" name="reminder" id="reminder" class="form-control" placeholder="Напоминание">-->
       </div>
     </form>
   </div>

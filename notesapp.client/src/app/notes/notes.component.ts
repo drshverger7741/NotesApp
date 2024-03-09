@@ -20,18 +20,16 @@ export class NotesComponent implements OnInit {
     id: 0,
     title: '',
     content: '',
-    status: false,
     dateCreate: new Date(),
     dateToNeedComlete: new Date(),
-    tags: [],
-    reminderId: 0
+    tags: []
   };
 
   constructor(private notesService: NotesService, private tagsService: TagsService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.getNotes();
-    this.getTags(); // Добавьте эту строку
+    this.getTags();
   }
 
   getTags(): void {
@@ -43,7 +41,6 @@ export class NotesComponent implements OnInit {
   }
 
   createNote(): void {
-    // Добавление выбранных тегов в newNote перед сохранением
     this.newNote.tags = this.selectedTags;
     this.notesService.createNote(this.newNote).subscribe(note => {
       this.notes.push(note);
@@ -62,10 +59,8 @@ export class NotesComponent implements OnInit {
 
   saveNote(): void {
     if (this.newNote.id) {
-      // Обновление существующей заметки
       this.updateNote(this.newNote);
     } else {
-      // Создание новой заметки
       this.createNote();
     }
     this.closeModal();
@@ -80,28 +75,20 @@ export class NotesComponent implements OnInit {
   deleteTag(tag: string): void {
     this.selectedTags = this.selectedTags.filter(t => t !== tag);
   }
-  //openModal(template: TemplateRef<any>) {
-  //  this.modalRef = this.modalService.show(template);
-  //}
 
   openModal(template: TemplateRef<any>, note?: Note): void {
     if (note) {
-      // Заполняем форму данными заметки для редактирования
       this.newNote = { ...note };
-      // Используем оператор || для предоставления пустого массива, если note.tags не определен
       this.selectedTags = note.tags || [];
-    } else {
-      // Очищаем форму для создания новой заметки
-      // Сброс newNote и selectedTags после сохранения
+    }
+    else {
       this.newNote = {
         id: 0,
         title: '',
         content: '',
-        status: false,
         dateCreate: new Date(),
         dateToNeedComlete: new Date(),
-        tags: [],
-        reminderId: 0
+        tags: []
       };
       this.selectedTags = [];
     }
@@ -111,9 +98,6 @@ export class NotesComponent implements OnInit {
   closeModal() {
     this.modalRef.hide();
   }
-
-
-
   deleteNote(id: number): void {
     this.notesService.deleteNote(id).subscribe(() => {
       this.notes = this.notes.filter(note => note.id !== id);

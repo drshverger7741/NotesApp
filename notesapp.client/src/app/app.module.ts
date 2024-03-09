@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { NotesComponent } from './notes/notes.component';
 import { TagsComponent } from './tags/tags.component';
 import { RemindersComponent } from './reminders/reminders.component';
-import { NoteDialogComponent } from './note-dialog/note-dialog.component';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -16,7 +15,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReminderEditComponent } from './reminder-edit/reminder-edit.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 
@@ -25,9 +23,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppComponent,
     NotesComponent,
     TagsComponent,
-    RemindersComponent,
-    NoteDialogComponent,
-    ReminderEditComponent
+    RemindersComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
