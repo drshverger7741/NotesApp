@@ -41,6 +41,9 @@ namespace NotesApp.Database.Migrations
                     b.Property<DateTime>("DateToNeedComlete")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("ReminderId")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 

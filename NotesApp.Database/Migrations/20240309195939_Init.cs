@@ -24,7 +24,8 @@ namespace NotesApp.Database.Migrations
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     DateCreate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateToNeedComlete = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Tags = table.Column<List<string>>(type: "text[]", nullable: false)
+                    Tags = table.Column<List<string>>(type: "text[]", nullable: true),
+                    ReminderId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {

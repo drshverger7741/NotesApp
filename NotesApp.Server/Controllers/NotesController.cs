@@ -66,7 +66,7 @@ namespace NotesApp.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(note);
         }
 
         // POST: api/Notes

@@ -14,6 +14,8 @@ namespace NotesApp.DataBase.Models
         // Теги
         public List<string>? Tags { get; set; } = new List<string>();
 
+        public int? ReminderId { get; set; }
+
 
     }
 }

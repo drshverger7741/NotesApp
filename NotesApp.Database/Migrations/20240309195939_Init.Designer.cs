@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NotesApp.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240309190458_Init1")]
-    partial class Init1
+    [Migration("20240309195939_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,9 @@ namespace NotesApp.Database.Migrations
 
                     b.Property<DateTime>("DateToNeedComlete")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("ReminderId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
