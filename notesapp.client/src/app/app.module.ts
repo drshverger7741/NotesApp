@@ -15,7 +15,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReminderEditComponent } from './reminder-edit/reminder-edit.component'; 
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NotesComponent,
     TagsComponent,
     RemindersComponent,
-    NoteDialogComponent
+    NoteDialogComponent,
+    ReminderEditComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,

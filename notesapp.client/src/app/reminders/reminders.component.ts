@@ -9,12 +9,13 @@ import { Reminder } from '../models'; // Убедитесь, что у вас е
   styleUrls: ['./reminders.component.css']
 })
 export class RemindersComponent implements OnInit {
+  selectedReminder: Reminder | null = null;
+  tempReminder: Reminder | null = null;
   reminders: Reminder[] = [];
   newReminder: Reminder = {
     id: 0,
     name: '',
     dateToNeedComleteReminder: new Date(),
-    // Добавьте другие свойства, если они есть в вашей модели
   };
 
   constructor(private remindersService: RemindersService) { }
@@ -27,30 +28,55 @@ export class RemindersComponent implements OnInit {
     this.remindersService.getReminders().subscribe(reminders => this.reminders = reminders);
   }
 
+  //createReminder(): void {
+  //  this.remindersService.createReminder(this.newReminder).subscribe(reminder => {
+  //    this.reminders.push(reminder);
+  //    this.newReminder = {
+  //      id: 0,
+  //      name: '',
+  //      dateToNeedComleteReminder: new Date(),
+  //      // Сбросьте другие свойства, если они есть в вашей модели
+  //    };
+  //  });
+  //}
+
   createReminder(): void {
-    this.remindersService.createReminder(this.newReminder).subscribe(reminder => {
-      this.reminders.push(reminder);
+    this.remindersService.createReminder(this.newReminder).subscribe(() => {
+      this.getReminders(); // Обновляем список напоминаний после создания нового
       this.newReminder = {
         id: 0,
         name: '',
         dateToNeedComleteReminder: new Date(),
-        // Сбросьте другие свойства, если они есть в вашей модели
-      };
+      }; // Сбрасываем форму добавления
+      this.selectedReminder = null; // Сбрасываем выбранное напоминание и форму редактирования
     });
   }
 
-  updateReminder(reminder: Reminder): void {
-    this.remindersService.updateReminder(reminder).subscribe(updatedReminder => {
-      const index = this.reminders.findIndex(r => r.id === updatedReminder.id);
-      if (index !== -1) {
-        this.reminders[index] = updatedReminder;
-      }
-    });
+  updateReminder(reminder: Reminder | null): void {
+    if (reminder) {
+      this.remindersService.updateReminder(reminder.id, reminder).subscribe(() => {
+        this.getReminders(); // Обновляем список напоминаний после обновления
+        this.cancelEdit(); // Сбрасываем выбранное напоминание и форму редактирования
+      });
+    }
   }
+  
 
   deleteReminder(id: number): void {
     this.remindersService.deleteReminder(id).subscribe(() => {
       this.reminders = this.reminders.filter(reminder => reminder.id !== id);
     });
   }
+
+  selectReminderForEdit(reminder: Reminder): void {
+    this.selectedReminder = reminder;
+    this.tempReminder = { ...reminder }; // Создаем копию напоминания для редактирования
+  }
+
+  cancelEdit(): void {
+    this.selectedReminder = null;
+    this.tempReminder = null;
+  }
+
+
 }

@@ -1,18 +1,38 @@
-<form (submit)="createReminder()" class="mb-3">
- <div class="form-group">
+<form *ngIf="!selectedReminder" (submit)="createReminder()" class="mb-3">
+  <div class="input-group mb-3">
     <input [(ngModel)]="newReminder.name" name="name" class="form-control" placeholder="Заголовок">
- </div>
- <div class="form-group">
     <input [(ngModel)]="newReminder.dateToNeedComleteReminder" name="dateToNeedComleteReminder" type="datetime-local" class="form-control" placeholder="Дата">
- </div>
- <button type="submit" class="btn btn-primary">Добавить напоминание</button>
-</form>
-<ul class="list-group">
- <li *ngFor="let reminder of reminders" class="list-group-item d-flex justify-content-between align-items-center">
-    {{ reminder.name }} - {{ reminder.dateToNeedComleteReminder | date:'short' }}
-    <div>
-      <button (click)="updateReminder(reminder)" class="btn btn-secondary mr-2">Обновить</button>
-      <button (click)="deleteReminder(reminder.id)" class="btn btn-danger">Удалить</button>
+    <div class="input-group-append">
+      <button type="submit" class="btn btn-primary">Добавить напоминание</button>
     </div>
- </li>
-</ul>
+  </div>
+</form>
+
+<div *ngIf="tempReminder">
+  <div *ngIf="selectedReminder">
+    <form (submit)="updateReminder(tempReminder)" class="mb-3">
+      <div class="input-group mb-3">
+        <input [ngModel]="tempReminder?.name" (ngModelChange)="tempReminder.name = $event" name="name" class="form-control" placeholder="Заголовок">
+        <input [(ngModel)]="tempReminder.dateToNeedComleteReminder" name="dateToNeedComleteReminder" type="datetime-local" class="form-control" placeholder="Дата">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+          <button (click)="cancelEdit()" class="btn btn-secondary">Отменить</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+</div>
+
+  <ul class="list-group">
+    <li *ngFor="let reminder of reminders" class="list-group-item d-flex justify-content-between align-items-center">
+      {{ reminder.name }} - {{ reminder.dateToNeedComleteReminder | date:'dd.MM.yyyy HH:mm' }}
+      <div>
+        <button (click)="selectReminderForEdit(reminder)" class="btn btn-secondary mr-2">Обновить</button>
+        <button (click)="deleteReminder(reminder.id)" class="btn btn-danger">Удалить</button>
+      </div>
+    </li>
+  </ul>
+
