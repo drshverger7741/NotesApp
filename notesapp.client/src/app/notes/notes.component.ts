@@ -1,9 +1,9 @@
 // notes.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NotesService } from './notes.service';
-import { Note } from '../models';
-import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Note, Tag } from '../models';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { TagsService } from '../tags/tags.service';
 
 @Component({
  selector: 'app-notes',
@@ -11,7 +11,11 @@ import { MatDialog } from '@angular/material/dialog';
  styleUrls: ['./notes.component.css']
 })
 export class NotesComponent implements OnInit {
- notes: Note[] = [];
+  modalRef!: BsModalRef;
+  notes: any[] = []; // Предполагается, что у вас есть массив записок
+  selectedNote: any = {}; // Объект для хранения выбранной заметки
+  tags: any[] = [];
+  selectedTags: any[] = [];
  newNote: Note = {
     id: 0,
     title: '',
@@ -23,42 +27,57 @@ export class NotesComponent implements OnInit {
    reminder: undefined
  };
 
-  constructor(private notesService: NotesService, public dialog: MatDialog) { }
+  constructor(private notesService: NotesService, private tagsService: TagsService, private modalService: BsModalService) { }
 
  ngOnInit(): void {
-    this.getNotes();
- }
+   this.getNotes();
+   this.getTags(); // Добавьте эту строку
+  }
+
+  getTags(): void {
+    this.tagsService.getTags().subscribe(tags => this.tags = tags);
+  }
 
  getNotes(): void {
     this.notesService.getNotes().subscribe(notes => this.notes = notes);
  }
 
- createNote(): void {
+  createNote(): void {
+    // Добавление выбранных тегов в newNote перед сохранением
+    this.newNote.tags = this.selectedTags;
+
     this.notesService.createNote(this.newNote).subscribe(note => {
-        this.notes.push(note);
-        this.newNote = {
-            id: 0,
-            title: '',
-            content: '',
-            status: false,
-            dateCreate: new Date(),
-            dateToNeedComlete: new Date(),
-            tags: [],
-            reminder: undefined
-        };
+      this.notes.push(note);
+      // Сброс newNote и selectedTags после сохранения
+      this.newNote = {
+        id: 0,
+        title: '',
+        content: '',
+        status: false,
+        dateCreate: new Date(),
+        dateToNeedComlete: new Date(),
+        tags: [],
+        reminder: undefined
+      };
+      this.selectedTags = [];
+      this.closeModal();
     });
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(NoteDialogComponent, {
-      width: '250px',
-      data: {} // передайте данные, если это необходимо
-    });
+  addTag(tag: Tag): void {
+    if (!this.selectedTags.includes(tag)) {
+      this.selectedTags.push(tag);
+    }
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // здесь вы можете обработать результат, если это необходимо
-    });
+
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
   }
 
 
@@ -75,5 +94,7 @@ export class NotesComponent implements OnInit {
     this.notesService.deleteNote(id).subscribe(() => {
         this.notes = this.notes.filter(note => note.id !== id);
     });
- }
+  }
+
+
 }

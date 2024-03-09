@@ -16,7 +16,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReminderEditComponent } from './reminder-edit/reminder-edit.component'; 
+import { ReminderEditComponent } from './reminder-edit/reminder-edit.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ReminderEditComponent } from './reminder-edit/reminder-edit.component';
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     provideAnimationsAsync()

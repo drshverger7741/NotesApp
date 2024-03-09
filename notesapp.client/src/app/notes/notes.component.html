@@ -1,4 +1,4 @@
-<form (submit)="createNote()" class="mb-3">
+<!--<form (submit)="createNote()" class="mb-3">
   <div class="form-group">
     <input [(ngModel)]="newNote.title" name="title" class="form-control" placeholder="Заголовок">
   </div>
@@ -6,22 +6,20 @@
     <input [(ngModel)]="newNote.content" name="content" class="form-control" placeholder="Содержание">
   </div>
   <button type="submit" class="btn btn-primary">Добавить заметку</button>
-
-
-  <div class="input-group mb-3">
-    <!--<input [(ngModel)]="newTag.name" name="name" class="form-control" placeholder="Введите название тега">-->
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="submit">Добавить тег</button>
-    </div>
-  </div>
-</form>
-<button mat-raised-button (click)="openDialog()">Добавить заметку</button>
+</form>-->
+<!-- Кнопка для открытия модального окна -->
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Добавить заметку</button>
 
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Заголовок</th>
-      <th scope="col">Содержание</th>
+      <th>Заголовок</th>
+      <th>Содержание</th>
+      <th>Статус</th>
+      <th>Дата создания</th>
+      <th>Дата дедлайна</th>
+      <th>Теги</th>
+      <th>Напоминание</th>
       <th scope="col">Действия</th>
     </tr>
   </thead>
@@ -29,12 +27,74 @@
     <tr *ngFor="let note of notes">
       <td>{{ note.title }}</td>
       <td>{{ note.content }}</td>
+      <td>{{ note.status ? 'Выполнено' : 'Не выполнено' }}</td>
+      <td>{{ note.dateCreate | date:'dd.MM.yyyy HH:mm'}}</td>
+      <td>{{ note.dateToNeedComlete | date:'dd.MM.yyyy HH:mm' }}</td>
       <td>
+        <span *ngFor="let tag of note.tags">{{ tag.name }}</span>
+      </td>
+      <td>
+        {{ note.reminder ? note.reminder.name : 'Нет напоминания' }}
+      </td>
+      <td>
+        <!--<button class="btn btn-warning btn-sm" (click)="openEditNoteModal(note)">Изменить</button>-->
         <button class="btn btn-warning btn-sm" (click)="updateNote(note)">Изменить</button>
         <button class="btn btn-danger btn-sm" (click)="deleteNote(note.id)">Удалить</button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<!-- Модальное окно -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Добавить заметку</h4>
+  </div>
+  <div class="modal-body">
+    <form class="mb-3">
+      <div class="form-group">
+        <label for="title">Заголовок</label>
+        <input [(ngModel)]="newNote.title" name="title" id="title" class="form-control" placeholder="Заголовок">
+      </div>
+      <div class="form-group">
+        <label for="content">Содержание</label>
+        <textarea [(ngModel)]="newNote.content" name="content" id="content" class="form-control" placeholder="Содержание"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="status">Статус</label>
+        <select [(ngModel)]="newNote.status" name="status" id="status" class="form-control">
+          <option [value]="true">Выполнено</option>
+          <option [value]="false">Не выполнено</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="dateToNeedComlete">Дата дедлайна</label>
+        <input [(ngModel)]="newNote.dateToNeedComlete" name="dateToNeedComlete" id="dateToNeedComlete" type="datetime-local" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="tags">Теги</label>
+        <div *ngFor="let tag of tags">
+          <button class="btn btn-secondary btn-sm" (click)="addTag(tag)">{{ tag.name }}</button>
+        </div>
+        <div class="form-group">
+          <label for="selectedTags">Выбранные теги</label>
+          <div *ngFor="let tag of selectedTags">
+            {{ tag.name }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="reminder">Напоминание</label>
+        <input [(ngModel)]="newNote.reminder" name="reminder" id="reminder" class="form-control" placeholder="Напоминание">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="createNote()">Сохранить</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Отмена</button>
+  </div>
+</ng-template>
+
+
 
 

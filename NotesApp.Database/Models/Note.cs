@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace NotesApp.DataBase.Models
 {
@@ -14,7 +15,8 @@ namespace NotesApp.DataBase.Models
         public DateTimeOffset DateToNeedComlete { get; set; }
 
         // Теги
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        [JsonIgnore]
+        public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
         // Возможно напоминание
         public Reminder? Reminder { get; set; }

@@ -9,7 +9,7 @@ namespace NotesApp.DataBase.DbContexts
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
         public DbSet<Note> Note { get; set; }
         public DbSet<Tag> Tag { get; set; }
