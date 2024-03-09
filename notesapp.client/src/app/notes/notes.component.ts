@@ -14,15 +14,15 @@ export class NotesComponent implements OnInit {
   modalRef!: BsModalRef;
   notes: any[] = []; // Предполагается, что у вас есть массив записок
   selectedNote: any = {}; // Объект для хранения выбранной заметки
-  tags: any[] = [];
-  selectedTags: any[] = [];
+  tags: Tag[] = [];
+  selectedTags: string[] = [];
  newNote: Note = {
     id: 0,
     title: '',
     content: '',
     status: false,
     dateCreate: new Date(),
-    dateToNeedComlete: new Date(),
+   dateToNeedComlete: new Date(),
    tags: [],
    reminder: undefined
  };
@@ -35,7 +35,7 @@ export class NotesComponent implements OnInit {
   }
 
   getTags(): void {
-    this.tagsService.getTags().subscribe(tags => this.tags = tags);
+   this.tagsService.getTags().subscribe(tags => this.tags = tags);
   }
 
  getNotes(): void {
@@ -65,8 +65,8 @@ export class NotesComponent implements OnInit {
   }
 
   addTag(tag: Tag): void {
-    if (!this.selectedTags.includes(tag)) {
-      this.selectedTags.push(tag);
+    if (!this.selectedTags.includes(tag.name)) {
+      this.selectedTags.push(tag.name);
     }
   }
 

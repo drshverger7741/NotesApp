@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NotesApp.DataBase.DbContexts;
 using NotesApp.DataBase.Models;
+using NuGet.Protocol;
 
 namespace NotesApp.Controllers
 {
@@ -20,7 +22,7 @@ namespace NotesApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
         {
-            return await _context.Note.Include(u=>u.Tags).Include(u => u.Reminder).ToListAsync();
+            return await _context.Note.ToListAsync();
         }
 
         // GET: api/Notes/5
@@ -71,7 +73,6 @@ namespace NotesApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Note>> PostNote(Note note)
         {
-            
             _context.Note.Add(note);
             await _context.SaveChangesAsync();
 

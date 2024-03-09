@@ -15,7 +15,6 @@ export class TagsComponent implements OnInit {
   newTag: Tag = {
     id: 0,
     name: '',
-    notes: [] // Если вы хотите включить связи с заметками в модель, убедитесь, что это соответствует вашей логике
   };
 
   constructor(private tagsService: TagsService, private snackBar: MatSnackBar) { }
@@ -40,7 +39,6 @@ export class TagsComponent implements OnInit {
           this.newTag = {
             id: 0,
             name: '',
-            notes: [] // Сбросьте связи с заметками, если они есть
           };
         });
         this.snackBar.open('Тег успешно добавлен.', 'OK', {

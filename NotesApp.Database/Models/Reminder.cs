@@ -14,5 +14,6 @@ namespace NotesApp.DataBase.Models
         // Связь один-к-одному с заметкой
         public int? NoteId { get; set; }
         public Note? Note { get; set; }
-    }
+    
+}
 }

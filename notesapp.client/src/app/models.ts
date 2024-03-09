@@ -5,7 +5,7 @@ export interface Note {
   status: boolean;
   dateCreate: Date;
   dateToNeedComlete: Date;
-  tags: Tag[];
+  tags: string[];
   reminder?: Reminder;
 }
 
@@ -13,13 +13,10 @@ export interface Reminder {
   id: number;
   name: string;
   dateToNeedComleteReminder: Date;
-  noteId?: number;
-  note?: Note;
 }
 
 export interface Tag {
   id: number;
   name: string;
-  notes: [];
 }
 

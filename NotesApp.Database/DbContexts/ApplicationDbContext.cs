@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NotesApp.DataBase.Models;
 
 namespace NotesApp.DataBase.DbContexts
@@ -14,7 +12,6 @@ namespace NotesApp.DataBase.DbContexts
         public DbSet<Note> Note { get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Reminder> Reminder { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Note>()
@@ -28,6 +25,7 @@ namespace NotesApp.DataBase.DbContexts
             modelBuilder.Entity<Reminder>()
                 .Property(e => e.DateToNeedComleteReminder)
                 .HasConversion(v => v.UtcDateTime, v => new DateTimeOffset(v, TimeSpan.Zero));
+
         }
 
     }
