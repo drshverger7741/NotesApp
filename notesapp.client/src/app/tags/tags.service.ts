@@ -8,7 +8,7 @@ import { Tag } from '../models';
   providedIn: 'root'
 })
 export class TagsService {
-  private apiUrl = 'https://localhost:7236/api/tags';
+  private apiUrl = 'http://localhost:5047/api/tags';
 
   constructor(private http: HttpClient) { }
 
