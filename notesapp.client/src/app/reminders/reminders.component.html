@@ -12,7 +12,7 @@
   <div *ngIf="selectedReminder">
     <form (submit)="updateReminder(tempReminder)" class="mb-3">
       <div class="input-group mb-3">
-        <input [ngModel]="tempReminder?.name" (ngModelChange)="tempReminder.name = $event" name="name" class="form-control" placeholder="Заголовок">
+        <input [ngModel]="tempReminder.name" (ngModelChange)="tempReminder.name = $event" name="name" class="form-control" placeholder="Заголовок">
         <input [(ngModel)]="tempReminder.dateToNeedComleteReminder" name="dateToNeedComleteReminder" type="datetime-local" class="form-control" placeholder="Дата">
         <div class="input-group-append">
           <button type="submit" class="btn btn-primary">Сохранить изменения</button>
