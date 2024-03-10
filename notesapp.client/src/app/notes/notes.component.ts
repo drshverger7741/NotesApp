@@ -1,9 +1,11 @@
 // notes.component.ts
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NotesService } from './notes.service';
-import { Note, Tag } from '../models';
+import { Note, Reminder, Tag } from '../models';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TagsService } from '../tags/tags.service';
+import { RemindersService } from '../reminders/reminders.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-notes',
@@ -12,8 +14,8 @@ import { TagsService } from '../tags/tags.service';
 })
 export class NotesComponent implements OnInit {
   modalRef!: BsModalRef;
-  notes: Note[] = []; // Предполагается, что у вас есть массив записок
-  selectedNote: any = {}; // Объект для хранения выбранной заметки
+  notes: Note[] = []; 
+  selectedNote: any = {}; 
   tags: Tag[] = [];
   selectedTags: string[] = [];
   newNote: Note = {
@@ -24,8 +26,13 @@ export class NotesComponent implements OnInit {
     dateToNeedComlete: new Date(),
     tags: []
   };
+  newReminder = {
+    id: 0,
+    name: '',
+    dateToNeedComleteReminder: new Date(),
+  }; 
 
-  constructor(private notesService: NotesService, private tagsService: TagsService, private modalService: BsModalService) { }
+  constructor(private notesService: NotesService, private remindersService: RemindersService, private tagsService: TagsService, private modalService: BsModalService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getNotes();
@@ -58,12 +65,22 @@ export class NotesComponent implements OnInit {
   }
 
   saveNote(): void {
-    if (this.newNote.id) {
-      this.updateNote(this.newNote);
-    } else {
-      this.createNote();
+    if (this.newNote.title.trim().length > 0 && this.newNote.content.trim().length > 0) {
+      if (this.newNote.id) {
+        this.updateNote(this.newNote);
+      } else {
+        this.createNote();
+      }
+      this.closeModal();
+      this.snackBar.open('Заметка добавлена.', 'OK', {
+        duration: 1500,
+      });
     }
-    this.closeModal();
+    else {
+      this.snackBar.open('Введите заголовок и содержание заметки.', 'OK', {
+        duration: 1500,
+      });
+    }
   }
 
 
@@ -104,5 +121,32 @@ export class NotesComponent implements OnInit {
     });
   }
 
+  createReminder() {
+    if (this.newNote.title.trim().length > 0 && this.newNote.content.trim().length > 0) {
+      this.newReminder = {
+        id: 0,
+        name: 'Напоминание к заметке:' + this.newNote.title,
+        dateToNeedComleteReminder: this.newNote.dateToNeedComlete
+      };
+      this.remindersService.createReminder(this.newReminder).subscribe(() => {
+        this.newReminder = {
+          id: 0,
+          name: '',
+          dateToNeedComleteReminder: new Date(),
+        }; // Сбрасываем форму добавления
+      });
+      this.snackBar.open('Напоминание о заметке добавлено.', 'OK', {
+        duration: 1500,
+      });
+    }
+    else {
+      this.snackBar.open('Введите заголовок и содержание заметки.', 'OK', {
+        duration: 1500,
+      });
+    }
+  }
 
 }
+
+
+

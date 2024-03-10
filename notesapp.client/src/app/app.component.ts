@@ -7,14 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-/*  title = 'NotesApp';*/
-
-  // Определение навигационных ссылок для вкладок
-  //navLinks = [
-  //  { path: '/notes', label: 'Заметки' },
-  //  { path: '/tags', label: 'Тэги' },
-  //  { path: '/reminders', label: 'Напоминания' },
-  //];
 
   navLinks = [
     { label: 'Заметки', path: '/notes', isActive: true },
@@ -23,7 +15,6 @@ export class AppComponent {
   ];
 
   constructor(private router: Router) {
-    // Вы можете использовать Router для определения активной ссылки
     this.router.events.subscribe(event => {
       this.navLinks.forEach(link => {
         link.isActive = this.router.url === link.path;

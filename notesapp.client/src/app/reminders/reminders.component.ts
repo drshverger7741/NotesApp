@@ -1,7 +1,8 @@
 // reminders.component.ts
 import { Component, OnInit } from '@angular/core';
 import { RemindersService } from './reminders.service';
-import { Reminder } from '../models'; // Убедитесь, что у вас есть модель Reminder
+import { Reminder } from '../models'; 
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reminders',
@@ -18,7 +19,7 @@ export class RemindersComponent implements OnInit {
     dateToNeedComleteReminder: new Date(),
   };
 
-  constructor(private remindersService: RemindersService) { }
+  constructor(private remindersService: RemindersService,private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getReminders();
@@ -28,35 +29,33 @@ export class RemindersComponent implements OnInit {
     this.remindersService.getReminders().subscribe(reminders => this.reminders = reminders);
   }
 
-  //createReminder(): void {
-  //  this.remindersService.createReminder(this.newReminder).subscribe(reminder => {
-  //    this.reminders.push(reminder);
-  //    this.newReminder = {
-  //      id: 0,
-  //      name: '',
-  //      dateToNeedComleteReminder: new Date(),
-  //      // Сбросьте другие свойства, если они есть в вашей модели
-  //    };
-  //  });
-  //}
-
   createReminder(): void {
-    this.remindersService.createReminder(this.newReminder).subscribe(() => {
-      this.getReminders(); // Обновляем список напоминаний после создания нового
-      this.newReminder = {
-        id: 0,
-        name: '',
-        dateToNeedComleteReminder: new Date(),
-      }; // Сбрасываем форму добавления
-      this.selectedReminder = null; // Сбрасываем выбранное напоминание и форму редактирования
-    });
+    if (this.newReminder.name.trim().length > 0) {
+      this.remindersService.createReminder(this.newReminder).subscribe(() => {
+        this.getReminders(); 
+        this.newReminder = {
+          id: 0,
+          name: '',
+          dateToNeedComleteReminder: new Date(),
+        }; 
+        this.selectedReminder = null; 
+      });
+      this.snackBar.open('Напоминание успешно добавлено.', 'OK', {
+        duration: 1500,
+      });
+    }
+    else {
+      this.snackBar.open('Введите заголовок напоминания.', 'OK', {
+        duration: 1500,
+      });
+    }
   }
 
   updateReminder(reminder: Reminder | null): void {
     if (reminder) {
       this.remindersService.updateReminder(reminder.id, reminder).subscribe(() => {
-        this.getReminders(); // Обновляем список напоминаний после обновления
-        this.cancelEdit(); // Сбрасываем выбранное напоминание и форму редактирования
+        this.getReminders(); 
+        this.cancelEdit(); 
       });
     }
   }
@@ -70,10 +69,8 @@ export class RemindersComponent implements OnInit {
 
   selectReminderForEdit(reminder: Reminder): void {
     this.selectedReminder = reminder;
-    this.tempReminder = { ...reminder }; // Создаем копию напоминания для редактирования
-    // Преобразование даты и времени в формат ISO 8601
-    //this.tempReminder.dateToNeedComleteReminder = reminder.dateToNeedComleteReminder.toISOString();
-    //this.tempReminder = reminder;
+    this.tempReminder = { ...reminder };
+
   }
 
   cancelEdit(): void {

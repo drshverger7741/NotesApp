@@ -28,7 +28,6 @@ export class TagsComponent implements OnInit {
   }
 
   createTag(): void {
-    // Проверяем, что имя тега не пустое
     if (this.newTag.name.trim().length > 0) {
       // Проверяем, существует ли уже тег с таким именем
       const tagExists = this.tags.some(tag => tag.name.toLowerCase() === this.newTag.name.toLowerCase());
@@ -57,8 +56,6 @@ export class TagsComponent implements OnInit {
       });
     }
   }
-
-
 
   deleteTag(id: number): void {
     this.tagsService.deleteTag(id).subscribe(() => {
