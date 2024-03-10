@@ -30,7 +30,7 @@
     <li *ngFor="let reminder of reminders" class="list-group-item d-flex justify-content-between align-items-center">
       {{ reminder.name }} - {{ reminder.dateToNeedComleteReminder | date:'dd.MM.yyyy HH:mm' }}
       <div>
-        <button (click)="selectReminderForEdit(reminder)" class="btn btn-secondary mr-2">Обновить</button>
+        <!--<button (click)="selectReminderForEdit(reminder)" class="btn btn-secondary mr-2">Изменить</button>-->
         <button (click)="deleteReminder(reminder.id)" class="btn btn-danger">Удалить</button>
       </div>
     </li>

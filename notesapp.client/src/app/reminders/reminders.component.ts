@@ -71,6 +71,9 @@ export class RemindersComponent implements OnInit {
   selectReminderForEdit(reminder: Reminder): void {
     this.selectedReminder = reminder;
     this.tempReminder = { ...reminder }; // Создаем копию напоминания для редактирования
+    // Преобразование даты и времени в формат ISO 8601
+    //this.tempReminder.dateToNeedComleteReminder = reminder.dateToNeedComleteReminder.toISOString();
+    //this.tempReminder = reminder;
   }
 
   cancelEdit(): void {
