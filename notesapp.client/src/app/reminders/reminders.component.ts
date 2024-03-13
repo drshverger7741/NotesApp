@@ -19,6 +19,7 @@ export class RemindersComponent implements OnInit {
     dateToNeedComleteReminder: new Date(),
   };
 
+
   constructor(private remindersService: RemindersService,private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
