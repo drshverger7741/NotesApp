@@ -1,12 +1,27 @@
 <div class="container">
- <header>
-   <nav class="nav nav-pills nav-justified d-flex justify-content-center">
-      <a *ngFor="let link of navLinks" class="nav-item nav-link" [routerLink]="link.path" [class.active]="link.isActive">{{ link.label }}</a>
-   </nav>
- </header>
- <div class="mt-3">
-   <router-outlet></router-outlet>
- </div>
+  <header>
+    <nav class="nav nav-pills nav-justified d-flex justify-content-center">
+      <button class="nav-item nav-link" (click)="activeTab = 'notes'">Заметки</button>
+      <button class="nav-item nav-link" (click)="activeTab = 'tags'">Теги</button>
+      <button class="nav-item nav-link" (click)="activeTab = 'reminders'">Напоминания</button>
+    </nav>
+  </header>
+  <div class="mt-3">
+
+    <div *ngIf="activeTab === 'notes'">
+      <app-notes></app-notes>
+    </div>
+
+    <div *ngIf="activeTab === 'tags'">
+      <app-tags></app-tags>
+    </div>
+
+    <div *ngIf="activeTab === 'reminders'">
+      <app-reminders></app-reminders>
+    </div>
+  </div>
+
+
 </div>
 
 

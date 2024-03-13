@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Note } from '../models';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Note } from '../models';
 })
 export class NotesService {
   private apiUrl = 'http://localhost:5047/api/Notes';
+  private notes = new BehaviorSubject<string[]>([]);
 
   constructor(private http: HttpClient) { }
 

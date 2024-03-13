@@ -1,7 +1,7 @@
 // reminders.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Reminder } from '../models'; // Убедитесь, что у вас есть модель Reminder
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Reminder } from '../models'; // Убедитесь, что у вас е
 })
 export class RemindersService {
   private apiUrl = 'http://localhost:5047/api/reminders';
+  private reminders = new BehaviorSubject<string[]>([]);
 
   constructor(private http: HttpClient) { }
 

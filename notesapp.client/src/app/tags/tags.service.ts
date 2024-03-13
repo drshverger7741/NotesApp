@@ -1,7 +1,7 @@
 // tags.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Tag } from '../models';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Tag } from '../models';
 })
 export class TagsService {
   private apiUrl = 'http://localhost:5047/api/tags';
+  private tags = new BehaviorSubject<string[]>([]);
 
   constructor(private http: HttpClient) { }
 

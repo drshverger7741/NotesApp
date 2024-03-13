@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  activeTab = 'notes';
 
   navLinks = [
     { label: 'Заметки', path: '/notes', isActive: true },

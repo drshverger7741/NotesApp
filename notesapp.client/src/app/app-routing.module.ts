@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: 'notes', component: NotesComponent },
   { path: 'tags', component: TagsComponent },
   { path: 'reminders', component: RemindersComponent },
-  { path: '', redirectTo: '/notes', pathMatch: 'full' },
 ];
 
 @NgModule({
